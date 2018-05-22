@@ -38,72 +38,24 @@
         icon: 'a18391'
 
 #############################################################
-#  lametric - battery status
+# lametric ha version - display new version if one available
 #############################################################
-
-- id: fitbit_la_metric_battery_high
+- id: lametric_ha_version_update
+  alias: "HA New Version La Metric"
   trigger:
   - platform: time
     minutes: '/5'
     seconds: 40
   condition:
     - condition: state
-      entity_id: sensor.charge_2_battery
-      state: 'High'
+      entity_id: sensor.ha_update_available
+      state: 'Yes'
   action:
   - service: notify.lametric_notify_long
     data:
-      message: "High"
+      message: '{{ states.sensor.ha_latest_version.state }}'
       data:
-        icon: 'a12126'
-
-- id: fitbit_la_metric_battery_medium
-  trigger:
-  - platform: time
-    minutes: '/5'
-    seconds: 40
-  condition:
-    - condition: state
-      entity_id: sensor.charge_2_battery
-      state: 'Medium'
-  action:
-  - service: notify.lametric_notify_long
-    data:
-      message: "Medium"
-      data:
-        icon: 'a12125'
-
-- id: fitbit_la_metric_battery_low
-  trigger:
-  - platform: time
-    minutes: '/5'
-    seconds: 40
-  condition:
-    - condition: state
-      entity_id: sensor.charge_2_battery
-      state: 'Low'
-  action:
-  - service: notify.lametric_notify_long
-    data:
-      message: "Low"
-      data:
-        icon: 'a12124'
-
-- id: fitbit_la_metric_battery_empty
-  trigger:
-  - platform: time
-    minutes: '/5'
-    seconds: 40
-  condition:
-    - condition: state
-      entity_id: sensor.charge_2_battery
-      state: 'Empty'
-  action:
-  - service: notify.lametric_notify_long
-    data:
-      message: "Empty"
-      data:
-        icon: 'a12123'
+        icon: 'a7956'
 
 #############################################################
 # lametric gmail - display count IF more than zero
@@ -133,8 +85,6 @@
 #############################################################
 # lametric gmail - display count IF new email
 #############################################################
-
-
 - id: gmail_new_la_metric
   alias: 'Gmail New La Metric'
   trigger:
@@ -151,52 +101,3 @@
         data:
           icon: 'a19667'
 
-#############################################################
-# lametric ha version - display new version if one available
-#############################################################
-- id: lametric_ha_version_update
-  alias: "HA New Version La Metric"
-  trigger:
-  - platform: time
-    minutes: '/5'
-    seconds: 50
-  condition:
-    - condition: state
-      entity_id: sensor.ha_update_available
-      state: 'Yes'
-  action:
-  - service: notify.lametric_notify_long
-    data:
-      message: '{{ states.sensor.ha_latest_version.state }}'
-      data:
-        icon: 'a7956'
-
-#############################################################
-# la metric - next bus arrival
-#############################################################
-# - id: bus_la_metric
-#   alias: 'Notify Bus Departure La Metric'
-#   trigger:
-#   - platform: time
-#     minutes: '/5'
-#     seconds: 30
-#   action:
-#   - service: notify.lametric_notify_long
-#     data:
-# #      message: "{{ states.sensor.bus_389_moncur.attributes.due }} mins"
-#       message: >-
-#         {% set time = states.sensor.bus_389_moncur.attributes.due %}
-#         {% set minutes = (time % 60) | int %}
-#         {% set hours = (time / 60) | int %}
-#         {%- if hours > 0 -%}
-#           {{ hours }} hrs
-#         {% else %}
-#           {%- if minutes == 1 -%}
-#             1 min
-#           {%- else -%}
-#             {{ minutes }} mins
-#           {%- endif -%}
-#         {%- endif -%}
-
-#       data:
-#         icon: 'i5420'

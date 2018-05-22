@@ -220,17 +220,6 @@ input_boolean:
 #   satsuki_occupancy:
 #     initial: off
 
-#############################################################
-# device tracker
-#############################################################
-
-#device_tracker:
-#  - platform: unifi
-#    host: 10.0.0.35
-#    username: hass
-#    password: !secret unifi_password
-#    port: 8443
-#    verify_ssl: false
 
 #############################################################
 # la metric
@@ -256,13 +245,13 @@ emulated_hue:
     - script
 #    - switch
 
-# input_select:
-#   chris_status_dropdown:
-#     name: Chris
-#     options:
-#       - Home
-#       - Just Arrived
-#       - Just Left
-#       - Away
-#       - Extended Away
-#     initial: Home
+input_select:
+  chris_status_dropdown:
+    name: Chris
+    options:
+      - Home
+      - Just Arrived
+      - Just Left
+      - Away
+      - Extended Away
+    initial: Home

@@ -82,14 +82,6 @@
   #     - sensor.satsuki_location
   #     - sensor.misaki_location
 
-#  car:
-#    name: "328i"
-#    view: no
-#    entities:
-#      - sensor.328i_mileage
-#      - sensor.328i_remaining_fuel
-#      - sensor.328i_remaining_range_fuel
-#      - device_tracker.328i
 
   temperatures:
     name: "Temperatures"
@@ -102,10 +94,4 @@
     view: no
     entities:
       -  sensor.steps
-      -  sensor.charge_2_battery
 
-  # timetables:
-  #   name: "Timetables"
-  #   view: no
-  #   entities:
-  #     - sensor.bus_timetable
