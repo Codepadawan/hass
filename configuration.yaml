@@ -1,0 +1,268 @@
+homeassistant:
+  # Name of the location where Home Assistant is running
+  name: Home
+  # Location required to calculate the time the sun rises and sets
+  latitude: !secret geo_lat
+  longitude: !secret geo_long
+  # Impacts weather/sunrise data (altitude above sea level in meters)
+  elevation: 2
+  unit_system: metric
+  time_zone: !secret geo_tz
+  customize: !include customize.yaml
+
+
+# Enables the frontend
+frontend:
+
+# Enables configuration UI
+config:
+
+http:
+  api_password: !secret http_password
+  base_url: !secret base_url
+  ssl_certificate: /ssl/fullchain.pem
+  ssl_key: /ssl/privkey.pem
+
+updater:
+  # include_used_components: true
+
+# Discover some devices automatically
+#discovery:
+
+#hass.io menu
+hassio:
+
+# Allows you to issue voice commands from the frontend in enabled browsers
+conversation:
+
+# Enables support for tracking state changes over time
+history:
+  include:
+    domains:
+      - sensor
+      - switch
+      - media_player
+    entities:
+      - sensor.swimming_pool_temperature
+      - sensor.email_personal
+      - cover.garage_door_cover
+# View all events in a logbook
+logbook:
+
+# Enables a map showing the location of tracked devices
+#map:
+
+ios:
+  push:
+    categories:
+      - name: garagepush
+        identifier: garagepush
+        actions:
+          - identifier: CLOSEGARAGEDOOR
+            title: 'Close Garage Door'
+            activationMode: 'background'
+            authenticationRequired: no
+            destructive: no
+            behavior: 'default'
+          - identifier: DISMISS
+            title: 'Dismiss'
+            activationMode: 'background'
+            authenticationRequired: no
+            destructive: no
+            behavior: 'default'
+
+alexa:
+
+intent_script: !include intent_script.yaml
+
+# Track the sun
+#sun:
+
+# Weather prediction
+#sensor:
+#  - platform: yr
+
+# Text to speech
+tts:
+  - platform: google
+
+# Cloud
+cloud:
+
+group: !include groups.yaml
+#automation: !include automations.yaml
+automation: !include_dir_merge_list automation
+script: !include scripts.yaml
+sensor: !include sensors.yaml
+
+#############################################################
+# covers
+#############################################################
+
+cover:
+  - platform: rpi_gpio
+    relay_time: 1
+    invert_relay: True
+    covers:
+      - relay_pin: 21
+        state_pin: 26
+        name: garage_door_cover
+
+#bmw_connected_drive:
+#  328i:
+#    username: !secret bmw_username
+#    password: !secret bmw_password
+#    country: !secret bmw_country
+
+
+binary_sensor:
+  - platform: rpi_gpio
+    invert_logic: true
+    ports:
+      26: garage_open_sensor
+      25: garage_closed_sensor
+
+
+  - platform: trend
+    sensors:
+      email_personal_new:
+        entity_id: sensor.email_personal
+
+mqtt:
+  broker: 10.0.0.61
+  port: 1883
+  client_id: pool-temperature
+  username: mqtt
+  password: !secret mqtt_password
+
+
+#############################################################
+# graphs
+#############################################################
+
+history_graph:
+  temperature_graphs:
+    name: "Temperatures"
+    refresh: 600
+    hours_to_show: 120
+    entities:
+      - sensor.swimming_pool_temperature
+
+#############################################################
+# notify
+#############################################################
+
+notify:
+  - name: twilio_sms
+    platform: twilio_sms
+    from_number: !secret twilio_from_number
+
+  - name: lametric_notify_long
+    platform: lametric
+    lifetime: 20
+    cycles: 3
+
+  - name: lametric_notify_short
+    platform: lametric
+    lifetime: 20
+    cycles: 1
+
+
+#############################################################
+# media
+#############################################################
+
+media_player:
+  - platform: spotify
+    client_id: !secret spotify_client_id
+    client_secret: !secret spotify_client_secret
+
+  - platform: sonos
+
+#############################################################
+# switch
+#############################################################
+
+switch:
+  - platform: rpi_gpio
+    ports:
+      21: garage_door_relay
+
+#############################################################
+# input booleans for storage
+#############################################################
+
+input_boolean:
+  garage_opening:
+    initial: off
+
+  garage_closing:
+    initial: off
+
+  garage_stopped:
+    initial: off
+
+  garage_stopped_on_open:
+    initial: off
+
+  garage_stopped_on_close:
+    initial: off
+
+#   chris_occupancy:
+#     initial: off
+
+#   seema_occupancy:
+#     initial: off
+
+#   misaki_occupancy:
+#     initial: off
+
+#   satsuki_occupancy:
+#     initial: off
+
+#############################################################
+# device tracker
+#############################################################
+
+#device_tracker:
+#  - platform: unifi
+#    host: 10.0.0.35
+#    username: hass
+#    password: !secret unifi_password
+#    port: 8443
+#    verify_ssl: false
+
+#############################################################
+# la metric
+#############################################################
+
+lametric:
+  client_id: !secret lametric_client_id
+  client_secret: !secret lametric_client_secret
+
+#############################################################
+# twilio
+#############################################################
+twilio:
+  account_sid: !secret twilio_account_sid
+  auth_token: !secret twilio_auth_token
+
+emulated_hue:
+  host_ip: 10.0.0.52
+  listen_port: 8300
+  expose_by_default: false
+  exposed_domains:
+#    - input_boolean
+    - script
+#    - switch
+
+# input_select:
+#   chris_status_dropdown:
+#     name: Chris
+#     options:
+#       - Home
+#       - Just Arrived
+#       - Just Left
+#       - Away
+#       - Extended Away
+#     initial: Home

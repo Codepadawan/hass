@@ -1,0 +1,76 @@
+{
+    "languageModel": {
+        "invocationName": "home assistant",
+        "intents": [
+            {
+                "name": "AMAZON.CancelIntent",
+                "slots": [],
+                "samples": []
+            },
+            {
+                "name": "AMAZON.HelpIntent",
+                "slots": [],
+                "samples": []
+            },
+            {
+                "name": "AMAZON.StopIntent",
+                "slots": [],
+                "samples": []
+            },
+            {
+                "name": "PoolTemperatureIntent",
+                "slots": [],
+                "samples": [
+                    "PoolTemperatureIntent what is the pool temperature",
+                    "PoolTemperatureIntent about the pool",
+                    "PoolTemperatureIntent how warm is the pool"
+                ]
+            },
+            {
+                "name": "OpenGarageDoorIntent",
+                "slots": [],
+                "samples": [
+                    "OpenGarageDoorIntent open the garage",
+                    "OpenGarageDoorIntent open the garage door"
+                ]
+            },
+            {
+                "name": "CloseGarageDoorIntent",
+                "slots": [],
+                "samples": [
+                    "CloseGarageDoorIntent close the garage",
+                    "CloseGarageDoorIntent close the garage door"
+                ]
+            },
+            {
+                "name": "StatusGarageDoorIntent",
+                "slots": [],
+                "samples": [
+                    "StatusGarageDoorIntent whats the garage door doing",
+                    "StatusGarageDoorIntent what is the status of the garage door",
+                    "StatusGarageDoorIntent is the garage door open or closed",
+                    "StatusGarageDoorIntent is the garage door closed",
+                    "StatusGarageDoorIntent is the garage door open"
+                ]
+            }
+            {
+                "name": "BusTimeIntent",
+                "slots": [],
+                "samples": [
+                    "how long until the bus",
+                    "how long to the bus",
+                    "when the next bus is due",
+                    "how long until the bus comes",
+                    "when is the next bus coming",
+                    "when is the next bus due",
+                    "next bus coming",
+                    "next bus time",
+                    "how soon is the bus",
+                    "when is the bus coming",
+                    "when is the bus due"
+                ]
+            }            
+        ],
+        "types": []
+    }
+}
