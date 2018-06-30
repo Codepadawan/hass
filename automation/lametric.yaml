@@ -80,7 +80,7 @@
           ???
         {% endif %}
       data:
-        icon: 'i18415'
+        icon: 'i43'
 
 #############################################################
 # lametric gmail - display count IF new email

@@ -27,7 +27,7 @@ updater:
   # include_used_components: true
 
 # Discover some devices automatically
-#discovery:
+discovery:
 
 #hass.io menu
 hassio:
@@ -122,11 +122,20 @@ binary_sensor:
       26: garage_open_sensor
       25: garage_closed_sensor
 
-
   - platform: trend
     sensors:
       email_personal_new:
         entity_id: sensor.email_personal
+
+  - platform: mqtt
+    device_class: 'motion'
+    name: 'Satchis Room'
+    state_topic: 'alarm/satsuki'
+
+  - platform: mqtt
+    device_class: 'motion'
+    name: 'Kitchen'
+    state_topic: 'alarm/kitchen'
 
 mqtt:
   broker: 10.0.0.61
@@ -208,8 +217,11 @@ input_boolean:
   garage_stopped_on_close:
     initial: off
 
-#   chris_occupancy:
-#     initial: off
+  mobile_token_send:
+    initial: off
+
+  # chris_occupancy:
+  #   initial: off
 
 #   seema_occupancy:
 #     initial: off
@@ -237,7 +249,7 @@ twilio:
   auth_token: !secret twilio_auth_token
 
 emulated_hue:
-  host_ip: 10.0.0.52
+  host_ip: !secret local_ip
   listen_port: 8300
   expose_by_default: false
   exposed_domains:
@@ -255,3 +267,50 @@ input_select:
       - Away
       - Extended Away
     initial: Home
+
+#############################################################
+# text input
+#############################################################
+
+input_text:
+  mobile_number:
+    name: Mobile
+    pattern: '^\(?(?:\+?61|0)4\)?(?:[ -]?[0-9]){2}\)?(?:[ -]?[0-9]){5}[0-9]$'
+
+#############################################################
+# konnected
+#############################################################
+
+# konnected:
+#   access_token: !secret konnected_access_token
+#   api_host: !secret local_ip_port
+#   devices:
+    # - id: 25766E
+    #   binary_sensors:
+    #     - zone: 1
+    #       type: door
+    #       name: 'Front Door'
+    #     - zone: 2
+    #       type: motion
+    #       name: 'Lounge Room'
+    #     - zone: 3
+    #       type: motion
+    #       name: 'Kitchen'
+    #     - zone: 4
+    #       type: motion
+    #       name: 'Master Bedroom'
+    #     - zone: 5
+    #       type: motion
+    #       name: 'Hollys Room'
+    #     - zone: 6
+    #       type: motion
+    #       name: 'Satchis Room'
+
+    # - id: 1985ED
+    #   binary_sensors:
+    #     - zone: 1
+    #       type: motion
+    #       name: 'Kitchen'
+    #     - zone: 3
+    #       type: motion
+    #       name: 'Satchis Room'

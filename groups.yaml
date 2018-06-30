@@ -10,16 +10,13 @@
       - group.temperatures
       - history_graph.temperatures
       - group.activity
-#      - group.timetables
-#      - group.presence_detection
-#      - group.car
 
-  # presence_view:
-  #   view: yes
-  #   name: Presence
-  #   icon: mdi:account-multiple
-  #   entities:
-  #     - group.presence_detection
+  security_view:
+    view: yes
+    name: Security
+    icon: mdi:security
+    entities:
+      - group.group_security
 
   media_view:
     view: yes
@@ -27,13 +24,6 @@
     icon: mdi:play-network
     entities:
       - media_player.spotify
-
-  # automations_view:
-  #   view: yes
-  #   name: Automations
-  #   icon: mdi:settings
-  #   entities:
-  #     - group.all_automations
 
   data_view:
     view: yes
@@ -49,6 +39,14 @@
     entities:
       - script.test_actionable_notify
 
+  token_view:
+    view: yes
+    name: Token
+    icon: mdi:cellphone-text
+    entities:
+      - input_boolean.mobile_token_send
+      - input_text.mobile_number
+
 #############################################################
 # groups
 #############################################################
@@ -60,6 +58,19 @@
       - cover.garage_door_cover
       - sensor.garage_door_state
 
+  group_security:
+    name: Security
+    view: no
+    entities:
+      - binary_sensor.front_door
+      - binary_sensor.lounge_room
+      - binary_sensor.kitchen
+      - binary_sensor.master_bedroom
+      - binary_sensor.hollys_room
+      - binary_sensor.satchis_room
+      - binary_sensor.study
+      - binary_sensor.michis_room
+
   data:
     name: "Data"
     view: no
@@ -67,21 +78,6 @@
       - switch.garage_door_relay
       - binary_sensor.garage_open_sensor
       - binary_sensor.garage_closed_sensor
-      # - sensor.chris_occupancy_confidence
-      # - sensor.seema_occupancy_confidence
-      # - sensor.satsuki_occupancy_confidence
-      # - sensor.misaki_occupancy_confidence
-      # - sensor.misaki_ground_confidence
-      # - sensor.misaki_pool_confidence
-
-  # presence_detection:
-  #   name: "Presence"
-  #   view: no
-  #   entities:
-  #     - sensor.chris_location
-  #     - sensor.satsuki_location
-  #     - sensor.misaki_location
-
 
   temperatures:
     name: "Temperatures"

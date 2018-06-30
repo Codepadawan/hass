@@ -14,20 +14,3 @@
     data:
       title: "Message from Home Assistant"
       message: "Home pool temperature is {{ states.sensor.swimming_pool_temperature.state }} °C"
-
-#- id: pool_temperature_pushover
-#  alias: 'Notify Pool Temp Pushover'
-#  trigger:
-#  - platform: time
-#    at: '08:00:00'
-#  action:
-#  - service: notify.pushover_notify
-#    data:
-#      title: "Message from Home Assistant"
-#      message: "Home pool temperature is {{ states.sensor.swimming_pool_temperature.state }} °C"
-#      data:
-#        sound: pianobar
-
-#  - service: notify.prowl_notify
-#    data:
-#      message: "Home pool temperature is {{ states.sensor.swimming_pool_temperature.state }} °C"
