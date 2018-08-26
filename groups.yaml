@@ -16,7 +16,9 @@
     name: Security
     icon: mdi:security
     entities:
-      - group.group_security
+      - group.group_alarm_status
+      - group.group_alarm_panel
+      - group.group_alarm_sensors
 
   media_view:
     view: yes
@@ -24,6 +26,13 @@
     icon: mdi:play-network
     entities:
       - media_player.spotify
+
+  presence_view:
+    view: yes
+    name: Presence
+    icon: mdi:account-multiple
+    entities:
+      - group.presence_detection
 
   data_view:
     view: yes
@@ -58,18 +67,31 @@
       - cover.garage_door_cover
       - sensor.garage_door_state
 
-  group_security:
-    name: Security
+  group_alarm_status:
+    name: Alarm Status
+    view: no
+    entities:
+      - sensor.alarm_sensors_state
+
+  group_alarm_panel:
+    name: Alarm Control
+    view: no
+    entities:
+      - alarm_control_panel.home_alarm
+
+  group_alarm_sensors:
+    name: Alarm Sensors
     view: no
     entities:
       - binary_sensor.front_door
-      - binary_sensor.lounge_room
+      - binary_sensor.living_room
       - binary_sensor.kitchen
       - binary_sensor.master_bedroom
       - binary_sensor.hollys_room
       - binary_sensor.satchis_room
       - binary_sensor.study
       - binary_sensor.michis_room
+
 
   data:
     name: "Data"
@@ -90,4 +112,13 @@
     view: no
     entities:
       -  sensor.steps
+
+  presence_detection:
+    name: "Presence"
+    view: no
+    entities:
+      - sensor.chris_location
+      - sensor.satsuki_location
+      # - sensor.misuki_location
+      # - sensor.seema_location
 

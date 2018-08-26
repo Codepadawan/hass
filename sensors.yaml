@@ -44,6 +44,114 @@
     unit_of_measurement: "°C"
 
 #############################################################
+# presence - ground
+#############################################################
+
+  - platform: mqtt
+    state_topic: 'location/ground/owner//34:08:BC:61:C2:14'
+    value_template: '{{ value_json.confidence }}'
+    name: 'Chris Ground Confidence'
+
+  # - platform: mqtt
+  #   state_topic: 'location/owner/ground/78:7E:61:36:75:8F'
+  #   value_template: '{{ value_json.confidence }}'
+  #   name: 'Seema Occupancy Confidence'
+
+  # - platform: mqtt
+  #   state_topic: 'location/owner/ground/10:41:7F:3C:91:2A'
+  #   value_template: '{{ value_json.confidence }}'
+  #   name: 'Misaki Ground Confidence'
+
+  - platform: mqtt
+    state_topic: 'location/ground/owner//58:E2:8F:C5:EA:16'
+    value_template: '{{ value_json.confidence }}'
+    name: 'Satsuki Occupancy Confidence'
+
+#############################################################
+# presence - pool
+#############################################################
+
+  # - platform: mqtt
+  #   state_topic: 'location/owner/pool/34:08:BC:61:C2:14'
+  #   value_template: '{{ value_json.confidence }}'
+  #   name: 'Chris Pool Confidence'
+
+  # - platform: mqtt
+  #   state_topic: 'location/owner/pool/10:41:7F:3C:91:2A'
+  #   value_template: '{{ value_json.confidence }}'
+  #   name: 'Misaki Pool Confidence'
+
+#############################################################
+# presence - min_max
+#############################################################
+
+  - platform: min_max
+    name: "Chris Occupancy Confidence"
+    type: mean
+    round_digits: 0
+    entity_ids:
+      - sensor.chris_ground_confidence
+      # - sensor.chris_pool_confidence
+
+  # - platform: min_max
+  #   name: "Misaki Occupancy Confidence"
+  #   type: mean
+  #   round_digits: 0
+  #   entity_ids:
+  #     - sensor.misaki_ground_confidence
+  #     - sensor.misaki_pool_confidence
+
+#############################################################
+# presence - location
+#############################################################
+
+
+  - platform: template
+    sensors:
+      chris_location:
+        value_template: '{{ states.input_select.chris_status_dropdown.state }}'
+        friendly_name: 'Chris'
+        icon_template: >-
+          {% if states.input_boolean.chris_occupancy.state == 'on' %}
+            mdi:home-account
+          {% else %}
+            mdi:home-outline
+          {% endif %}
+
+  - platform: template
+    sensors:
+      satsuki_location:
+        friendly_name: "Satsuki"
+        value_template:  >-
+          {% if states.input_boolean.satsuki_occupancy.state == 'on' %}
+          Home
+          {% else %}
+          Away
+          {% endif %}
+        icon_template: >-
+          {% if states.input_boolean.satsuki_occupancy.state == 'on' %}
+            mdi:home-account
+          {% else %}
+            mdi:home-outline
+          {% endif %}
+
+  # - platform: template
+  #   sensors:
+  #     misaki_location:
+  #       friendly_name: "Misaki"
+  #       value_template:  >-
+  #         {% if states.input_boolean.misaki_occupancy.state == 'on' %}
+  #         Home
+  #         {% else %}
+  #         Away
+  #         {% endif %}
+  #       icon_template: >-
+  #         {% if states.input_boolean.misaki_occupancy.state == 'on' %}
+  #           mdi:home-account
+  #         {% else %}
+  #           mdi:home-outline
+  #         {% endif %}
+#############################################################
 # gmail
 #############################################################
 
@@ -93,4 +201,24 @@
             mdi:alert-box
           {% else %}
             mdi:approval
+          {% endif %}
+
+#############################################################
+# alarm
+#############################################################
+
+  - platform: template
+    sensors:
+      alarm_sensors_state:
+        value_template: >-
+          {% if states.input_boolean.alarm_status.state == 'on' %}
+            Online
+          {% else %}
+            Offline
+          {% endif %}
+        icon_template: >-
+          {% if states.input_boolean.alarm_status.state == 'on' %}
+            mdi:bell
+          {% else %}
+            mdi:bell-outline
           {% endif %}

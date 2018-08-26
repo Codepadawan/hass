@@ -127,15 +127,62 @@ binary_sensor:
       email_personal_new:
         entity_id: sensor.email_personal
 
+#############################################################
+# motion sensors
+#############################################################
+
+
+# ground floor
+  - platform: mqtt
+    device_class: 'door'
+    name: 'Front Door'
+    state_topic: 'alarm/g-frontdoor'
+
   - platform: mqtt
     device_class: 'motion'
-    name: 'Satchis Room'
-    state_topic: 'alarm/satsuki'
+    name: 'Living Room'
+    state_topic: 'alarm/g-living'
 
   - platform: mqtt
     device_class: 'motion'
     name: 'Kitchen'
-    state_topic: 'alarm/kitchen'
+    state_topic: 'alarm/g-kitchen'
+
+# upper groud
+
+  - platform: mqtt
+    device_class: 'motion'
+    name: 'Hollys Room'
+    state_topic: 'alarm/ug-front'
+
+  - platform: mqtt
+    device_class: 'motion'
+    name: 'Master Bedroom'
+    state_topic: 'alarm/ug-back'
+
+# lower groud
+
+  - platform: mqtt
+    device_class: 'motion'
+    name: 'Satchis Room'
+    state_topic: 'alarm/lg-front'
+
+  - platform: mqtt
+    device_class: 'motion'
+    name: 'Study'
+    state_topic: 'alarm/lg-back'
+
+  - platform: mqtt
+    device_class: 'motion'
+    name: 'Michis Room'
+    state_topic: 'alarm/garage'
+
+# sensor status ping
+
+  - platform: mqtt
+    device_class: 'connectivity'
+    name: 'Alarm Ping'
+    state_topic: 'alarm/ping'
 
 mqtt:
   broker: 10.0.0.61
@@ -217,20 +264,25 @@ input_boolean:
   garage_stopped_on_close:
     initial: off
 
+  alarm_status:
+    name: 'Alarm Status'
+    initial: off
+    icon: mdi:bell
+
   mobile_token_send:
     initial: off
 
-  # chris_occupancy:
-  #   initial: off
+  chris_occupancy:
+    initial: off
 
-#   seema_occupancy:
-#     initial: off
+  seema_occupancy:
+    initial: off
 
-#   misaki_occupancy:
-#     initial: off
+  misaki_occupancy:
+    initial: off
 
-#   satsuki_occupancy:
-#     initial: off
+  satsuki_occupancy:
+    initial: off
 
 
 #############################################################
@@ -277,40 +329,20 @@ input_text:
     name: Mobile
     pattern: '^\(?(?:\+?61|0)4\)?(?:[ -]?[0-9]){2}\)?(?:[ -]?[0-9]){5}[0-9]$'
 
+
 #############################################################
-# konnected
+# alarm panel
 #############################################################
 
-# konnected:
-#   access_token: !secret konnected_access_token
-#   api_host: !secret local_ip_port
-#   devices:
-    # - id: 25766E
-    #   binary_sensors:
-    #     - zone: 1
-    #       type: door
-    #       name: 'Front Door'
-    #     - zone: 2
-    #       type: motion
-    #       name: 'Lounge Room'
-    #     - zone: 3
-    #       type: motion
-    #       name: 'Kitchen'
-    #     - zone: 4
-    #       type: motion
-    #       name: 'Master Bedroom'
-    #     - zone: 5
-    #       type: motion
-    #       name: 'Hollys Room'
-    #     - zone: 6
-    #       type: motion
-    #       name: 'Satchis Room'
-
-    # - id: 1985ED
-    #   binary_sensors:
-    #     - zone: 1
-    #       type: motion
-    #       name: 'Kitchen'
-    #     - zone: 3
-    #       type: motion
-    #       name: 'Satchis Room'
+alarm_control_panel:
+  - platform: manual
+    name: Home Alarm
+    trigger_time: 4
+    armed_away:
+      pending_time: 30
+      delay_time: 20 
+    disarmed:
+      trigger_time: 0
+    armed_home:
+      pending_time: 0
+      delay_time: 0

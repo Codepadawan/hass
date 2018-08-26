@@ -15,3 +15,16 @@
 
   sensor.charge_2_battery:
     friendly_name: 'Battery Level'
+
+  input_boolean.alarm_status:
+    templates:
+      icon: >
+        if (state === 'on') return 'mdi:bell';
+        return 'mdi:bell-off';
+
+  sensor.alarm_sensors_state:
+      friendly_name: 'Alarm Sensors'
+      templates:
+        icon: >
+          if (state === 'Online') return 'mdi:bell';
+          return 'mdi:bell-off';

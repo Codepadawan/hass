@@ -90,6 +90,54 @@
     - service: input_boolean.turn_on
       entity_id: input_boolean.garage_stopped_on_close
 
+
+#############################################################
+# check status
+#############################################################
+
+- alias: 'Garage Status Closed'
+  trigger:
+    - platform: time
+      minutes: '/1'
+      seconds: 00
+  condition:
+      - condition: state
+        entity_id:  binary_sensor.garage_closed_sensor
+        state: 'on'
+  action:
+    - service: input_boolean.turn_off
+      entity_id: input_boolean.garage_closing
+    - service: input_boolean.turn_off
+      entity_id: input_boolean.garage_opening
+    - service: input_boolean.turn_off
+      entity_id: input_boolean.garage_stopped
+    - service: input_boolean.turn_off
+      entity_id: input_boolean.garage_stopped_on_open
+    - service: input_boolean.turn_off
+      entity_id: input_boolean.garage_stopped_on_close
+
+- alias: 'Garage Status Open'
+  trigger:
+    - platform: time
+      minutes: '/1'
+      seconds: 00
+  condition:
+      - condition: state
+        entity_id:  binary_sensor.garage_open_sensor
+        state: 'on'
+  action:
+    - service: input_boolean.turn_off
+      entity_id: input_boolean.garage_closing
+    - service: input_boolean.turn_off
+      entity_id: input_boolean.garage_opening
+    - service: input_boolean.turn_off
+      entity_id: input_boolean.garage_stopped
+    - service: input_boolean.turn_off
+      entity_id: input_boolean.garage_stopped_on_open
+    - service: input_boolean.turn_off
+      entity_id: input_boolean.garage_stopped_on_close
+
+
 #############################################################
 # detect garage door open for a long period
 #############################################################
@@ -115,12 +163,29 @@
           category: "garagepush"
         action_data:
           entity_id: switch.garage_door_relay
-  - service: script.sonos_say
+  # - service: script.sonos_say
+  #   data:
+  #     sonos_entity: media_player.study
+  #     volume: 0.2
+  #     message: "Home Assistant reports garage door open for more than 5 minutes"
+  #     delay: '00:00:05'
+
+- id: garage_door_open_30
+  alias: 'Garage Door Open 30'
+  trigger:
+    platform: state
+    entity_id: binary_sensor.garage_closed_sensor
+    to: 'off'
+    for:
+      minutes: 30
+  action:
+  - service: notify.twilio_sms
+    data_template:
+      target: '+61410636096'
+      message: "Home Assistant reports garage door open for more than 30 minutes"
+  - service: notify.ios_iphonex_chris
     data:
-      sonos_entity: media_player.study
-      volume: 0.2
-      message: "Home Assistant reports garage door open for more than 5 minutes"
-      delay: '00:00:05'
+      message: "Home Assistant reports garage door open for more than 30 minutes"
 
 #############################################################
 # iOS app button to close the door

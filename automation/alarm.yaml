@@ -1,0 +1,126 @@
+#############################################################
+# alarm triggers
+#############################################################
+
+- id: alarm_triggers
+  alias: 'Trigger alarm while armed'
+  trigger:
+    - platform: state
+      entity_id: binary_sensor.satchis_room
+      to: 'on'
+    - platform: state
+      entity_id: binary_sensor.kitchen
+      to: 'on'
+    - platform:  state
+      entity_id: binary_sensor.front_door
+      to: 'open'
+    - platform:  state
+      entity_id: binary_sensor.living
+      to: 'on'
+
+  condition:
+    condition: or
+    conditions:
+      - condition: state
+        entity_id: alarm_control_panel.home_alarm
+        state: armed_away
+
+      - condition: state
+        entity_id: alarm_control_panel.home_alarm
+        state: armed_home
+
+  action:
+    - service: alarm_control_panel.alarm_trigger
+      entity_id: alarm_control_panel.home_alarm
+
+
+# - alias: 'Alarm status not updated'
+#   trigger:
+#     - platform: time
+#       minutes: '/1'
+#       seconds: 00
+#   action:
+#     - service: input_number.set_value
+#       data_template:
+#         entity_id: input_number.alarm_status_last_updated
+#         value: '{{ as_timestamp(now())-as_timestamp(states.binary_sensor.alarm_ping.last_changed) }}'
+
+- alias: 'Alarm status off'
+  trigger:
+    - platform: time
+      minutes: '/1'
+      seconds: 00
+  condition:
+    - condition: template
+      value_template: '{{ (as_timestamp(now())-as_timestamp(states.binary_sensor.alarm_ping.last_changed)) > 60 }}'
+  action:
+    - service: input_boolean.turn_off
+      entity_id: input_boolean.alarm_status
+    - service: group.set_visibility
+      entity_id: group.group_alarm_panel
+      data:
+          visible: False
+    - service: group.set_visibility
+      entity_id: group.group_alarm_sensors
+      data:
+          visible: False
+
+- alias: 'Alarm status on'
+  trigger:
+    - platform: time
+      minutes: '/1'
+      seconds: 00
+  condition:
+    - condition: template
+      value_template: '{{ (as_timestamp(now())-as_timestamp(states.binary_sensor.alarm_ping.last_changed)) <= 60 }}'
+  action:
+    - service: input_boolean.turn_on
+      entity_id: input_boolean.alarm_status
+    - service: group.set_visibility
+      entity_id: group.group_alarm_panel
+      data:
+          visible: True
+    - service: group.set_visibility
+      entity_id: group.group_alarm_sensors
+      data:
+          visible: True
+
+#############################################################
+# alarm notifications
+#############################################################
+
+- alias: 'Send notification when alarm triggered'
+  trigger:
+    - platform: state
+      entity_id: alarm_control_panel.home_alarm
+      to: 'triggered'
+  action:
+    - service: notify.ios_iphonex_chris
+      data:
+        title: "Message from Home Assistant"
+        message: "Home alarm has been triggered"
+
+    - service: notify.lametric_notify_long
+      data:
+        message: "ALARM"
+        data:
+          icon: 'a7921'
+
+    - service: notify.twilio_sms
+      data_template:
+        target: '+61410636096'
+        message: "Home Alarm has been triggered"
+
+
+- id: alarm_offline
+  trigger:
+    - platform: state
+      entity_id: input_boolean.alarm_status
+      to: 'off'
+      for:
+        minutes: 15
+  action:
+    - service: notify.ios_iphonex_chris
+      data:
+        title: "Message from Home Assistant"
+        message: "Home alarm is offline"

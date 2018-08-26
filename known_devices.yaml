@@ -1,0 +1,261 @@
+
+328i:
+  hide_if_away: false
+  icon: mdi:car
+  mac:
+  name: 328i
+  picture:
+  track: true
+  vendor:
+
+iphonexchris:
+  hide_if_away: false
+  icon:
+  mac: 34:08:BC:61:C2:15
+  name: iPhoneX-Chris
+  picture:
+  track: true
+  vendor: Apple, Inc.
+
+brwd80f9967f40b:
+  hide_if_away: false
+  icon:
+  mac: D8:0F:99:67:F4:0B
+  name: BRWD80F9967F40B
+  picture:
+  track: true
+  vendor: unknown
+
+seemasiphone:
+  hide_if_away: false
+  icon:
+  mac: 78:7E:61:36:75:9F
+  name: Seemas-iPhone
+  picture:
+  track: true
+  vendor: Apple, Inc.
+
+sonoszp_4:
+  hide_if_away: false
+  icon:
+  mac: 00:0E:58:CC:9D:74
+  name: SonosZP
+  picture:
+  track: true
+  vendor: unknown
+
+macbookpro2016cj:
+  hide_if_away: false
+  icon:
+  mac: C4:B3:01:B9:6A:C3
+  name: MacBookPro2016-CJ
+  picture:
+  track: true
+  vendor: unknown
+
+hassio:
+  hide_if_away: false
+  icon:
+  mac: B8:27:EB:C6:62:A5
+  name: hassio
+  picture:
+  track: true
+  vendor: Raspberry Pi Foundation
+
+sonoszp_2:
+  hide_if_away: false
+  icon:
+  mac: 00:0E:58:50:AB:EA
+  name: SonosZP
+  picture:
+  track: true
+  vendor: unknown
+
+'586356232366':
+  hide_if_away: false
+  icon:
+  mac: 58:63:56:23:23:66
+  name: '586356232366'
+  picture:
+  track: true
+  vendor: unknown
+
+iphone5work:
+  hide_if_away: false
+  icon:
+  mac: 70:11:24:DA:31:66
+  name: iPhone5Work
+  picture:
+  track: true
+  vendor: unknown
+
+amazonda003ce59:
+  hide_if_away: false
+  icon:
+  mac: 38:F7:3D:39:DF:34
+  name: amazon-da003ce59
+  picture:
+  track: true
+  vendor: unknown
+
+seemasipad:
+  hide_if_away: false
+  icon:
+  mac: C8:F6:50:32:B5:66
+  name: Seemas-iPad
+  picture:
+  track: true
+  vendor: unknown
+
+seemasair:
+  hide_if_away: false
+  icon:
+  mac: 00:88:65:36:4E:42
+  name: Seemas-Air
+  picture:
+  track: true
+  vendor: Apple, Inc.
+
+raspberrypi:
+  hide_if_away: false
+  icon:
+  mac: B8:27:EB:35:09:2D
+  name: raspberrypi
+  picture:
+  track: true
+  vendor: unknown
+
+sonoszp:
+  hide_if_away: false
+  icon:
+  mac: B8:E9:37:BC:38:04
+  name: SonosZP
+  picture:
+  track: true
+  vendor: unknown
+
+sonoszp_3:
+  hide_if_away: false
+  icon:
+  mac: 00:0E:58:20:7C:44
+  name: SonosZP
+  picture:
+  track: true
+  vendor: unknown
+
+raspberrypi_2:
+  hide_if_away: false
+  icon:
+  mac: B8:27:EB:47:89:30
+  name: raspberrypi
+  picture:
+  track: true
+  vendor: Raspberry Pi Foundation
+
+iphone6ssatsuki:
+  hide_if_away: false
+  icon:
+  mac: 58:E2:8F:C5:EA:15
+  name: iPhone6sSatsuki
+  picture:
+  track: true
+  vendor: Apple, Inc.
+
+iphone:
+  hide_if_away: false
+  icon:
+  mac: 10:41:7F:3C:91:29
+  name: iPhone
+  picture:
+  track: true
+  vendor: Apple, Inc.
+
+fca183b321f4:
+  hide_if_away: false
+  icon:
+  mac: FC:A1:83:B3:21:F4
+  name: fca183b321f4
+  picture:
+  track: true
+  vendor: Amazon Technologies Inc.
+
+plc2603:
+  hide_if_away: false
+  icon:
+  mac: F0:D5:BF:E8:22:A4
+  name: PLC-2603
+  picture:
+  track: true
+  vendor: Intel Corporate
+
+ipad16chris:
+  hide_if_away: false
+  icon:
+  mac: 38:0F:4A:E0:6B:AC
+  name: iPad16-Chris
+  picture:
+  track: true
+  vendor: Apple, Inc.
+
+chrissair:
+  hide_if_away: false
+  icon:
+  mac: A4:D1:8C:C9:2C:E6
+  name: Chriss-Air
+  picture:
+  track: true
+  vendor: Apple, Inc.
+
+jamiesiphone:
+  hide_if_away: false
+  icon:
+  mac: CC:44:63:66:9C:05
+  name: Jamies-iPhone
+  picture:
+  track: true
+  vendor: Apple, Inc.
+
+au7020527w1:
+  hide_if_away: false
+  icon:
+  mac: F0:D5:BF:21:5C:C3
+  name: AU7020527W1
+  picture:
+  track: true
+  vendor: Intel Corporate
+
+84253f0cb830:
+  hide_if_away: false
+  icon:
+  mac: 84:25:3F:0C:B8:30
+  name: 84253f0cb830
+  picture:
+  track: true
+  vendor: silex technology, Inc.
+
+iphonex_chris:
+  hide_if_away: false
+  icon:
+  mac:
+  name: iphonex chris
+  picture:
+  track: true
+  vendor:
+
+ipadairsatsuki2:
+  hide_if_away: false
+  icon:
+  mac: 5C:AD:CF:F4:1C:CB
+  name: iPadAirSatsuki2
+  picture:
+  track: true
+  vendor: Apple, Inc.
+
+ipadair16family:
+  hide_if_away: false
+  icon:
+  mac: A8:5B:78:CA:58:B6
+  name: iPadAir16-Family
+  picture:
+  track: true
+  vendor: Apple, Inc.

@@ -58,6 +58,34 @@
         icon: 'a7956'
 
 #############################################################
+# lametric alarm status
+#############################################################
+- id: lametric_alarm_status
+  alias: "HA Alarm Armed La Metric"
+  trigger:
+  - platform: time
+    minutes: '/5'
+    seconds: 50
+
+  condition:
+    condition: or
+    conditions:
+      - condition: state
+        entity_id: alarm_control_panel.home_alarm
+        state: armed_away
+
+      - condition: state
+        entity_id: alarm_control_panel.home_alarm
+        state: armed_home
+
+  action:
+  - service: notify.lametric_notify_short
+    data:
+      message: 'Armed'
+      data:
+        icon: 'i7621'
+
+#############################################################
 # lametric gmail - display count IF more than zero
 #############################################################
 - id: gmail_count_la_metric
